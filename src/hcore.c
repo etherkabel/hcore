@@ -36,20 +36,6 @@ int main() {
     clsmem(mem);
     initreg(&reg);
 
-    mem[0] = MOV;
-    mem[1] = 7;
-    mem[2] = 300;
-    mem[3] = MOV;
-    mem[4] = 6;
-    mem[5] = 310;
-    mem[6] = MOV;
-    mem[7] = 0;
-    mem[8] = 5;
-    mem[9] = PUSH;
-    mem[10] = 0;
-    mem[11] = POP;
-    mem[12] = 2;
-
     while (reg.IP < MEMSIZE && mem[reg.IP] != 0)
     {
         opcode = &mem[reg.IP];
