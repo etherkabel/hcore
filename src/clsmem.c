@@ -3,6 +3,6 @@
 
 void clsmem(int16_t* mem)
 {
-    for (size_t i=0;i<512;++i)
+    for (size_t i=0;i<MEMSIZE;++i)
         mem[i] = 0;
 }

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "../include/hcore.h"
 
-int16_t mem[512];
+int16_t mem[MEMSIZE];
 
 int16_t* getRegisterPtr(REGISTER* reg, int16_t index)
 {
@@ -32,24 +32,7 @@ int main() {
     clsmem(mem);
     initreg(&reg);
 
-    mem[0] = MOV;
-    mem[1] = 0;
-    mem[2] = 2;
-    mem[3] = NOP;
-    mem[4] = MOV;
-    mem[5] = 1;
-    mem[6] = 2;
-    mem[7] = ADD;
-    mem[8] = 0;
-    mem[9] = 1;
-    mem[10] = MOV;
-    mem[11] = 1;
-    mem[12] = 3;
-    mem[13] = SUB;
-    mem[14] = 0;
-    mem[15] = 1;
-
-    while (reg.IP < 512 && mem[reg.IP] != 0)
+    while (reg.IP < MEMSIZE && mem[reg.IP] != 0)
     {
         opcode = &mem[reg.IP];
         switch (*opcode)

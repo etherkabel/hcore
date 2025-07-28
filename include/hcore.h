@@ -8,6 +8,7 @@
 #define SUB 0x2
 #define MOV 0x3
 #define NOP 0x4
+#define MEMSIZE 512
 
 typedef struct {
     int16_t AX;
