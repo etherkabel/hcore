@@ -13,6 +13,8 @@ int16_t* getRegisterPtr(REGISTER* reg, int16_t index)
         case 3: return &reg->DX;
         case 4: return &reg->PC;
         case 5: return &reg->IP;
+        case 6: return &reg->SP;
+        case 7: return &reg->SS;
     }
 }
 
@@ -23,6 +25,8 @@ void initreg(REGISTER* reg)
     reg->CX = 0;
     reg->DX = 0;
     reg->IP = 0;
+    reg->SS = 0;
+    reg->SP = 0;
 }
 
 int main() {
@@ -31,6 +35,20 @@ int main() {
 
     clsmem(mem);
     initreg(&reg);
+
+    mem[0] = MOV;
+    mem[1] = 7;
+    mem[2] = 300;
+    mem[3] = MOV;
+    mem[4] = 6;
+    mem[5] = 310;
+    mem[6] = MOV;
+    mem[7] = 0;
+    mem[8] = 5;
+    mem[9] = PUSH;
+    mem[10] = 0;
+    mem[11] = POP;
+    mem[12] = 2;
 
     while (reg.IP < MEMSIZE && mem[reg.IP] != 0)
     {
@@ -78,6 +96,30 @@ int main() {
                 *reg_ptr1 = *reg_ptr1 - *reg_ptr2;
 
                 reg.IP += 3;
+                break;
+            }
+            case PUSH:
+            {
+                int16_t reg_index = mem[reg.IP+1];
+                int16_t* reg_ptr = getRegisterPtr(&reg, reg_index);
+                mem[reg.SS+reg.SP] = *reg_ptr;
+
+                reg.SP-=2;
+                reg.IP+=2;
+
+                break;
+            }
+            case POP:
+            {
+                int16_t reg_index = mem[reg.IP+1];
+                int16_t* reg_ptr = getRegisterPtr(&reg, reg_index);
+
+                reg.SP += 2;
+                *reg_ptr = mem[reg.SS+reg.SP];
+                mem[reg.SS+reg.SP] = 0;
+
+                reg.IP+=2;
+
                 break;
             }
             default:
