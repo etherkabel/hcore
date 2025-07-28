@@ -13,6 +13,8 @@ int16_t* getRegisterPtr(REGISTER* reg, int16_t index)
         case 3: return &reg->DX;
         case 4: return &reg->PC;
         case 5: return &reg->IP;
+        case 6: return &reg->SP;
+        case 7: return &reg->SS;
     }
 }
 
@@ -23,6 +25,8 @@ void initreg(REGISTER* reg)
     reg->CX = 0;
     reg->DX = 0;
     reg->IP = 0;
+    reg->SS = 0;
+    reg->SP = 0;
 }
 
 int main() {
@@ -78,6 +82,30 @@ int main() {
                 *reg_ptr1 = *reg_ptr1 - *reg_ptr2;
 
                 reg.IP += 3;
+                break;
+            }
+            case PUSH:
+            {
+                int16_t reg_index = mem[reg.IP+1];
+                int16_t* reg_ptr = getRegisterPtr(&reg, reg_index);
+                mem[reg.SS+reg.SP] = *reg_ptr;
+
+                reg.SP-=2;
+                reg.IP+=2;
+
+                break;
+            }
+            case POP:
+            {
+                int16_t reg_index = mem[reg.IP+1];
+                int16_t* reg_ptr = getRegisterPtr(&reg, reg_index);
+
+                reg.SP += 2;
+                *reg_ptr = mem[reg.SS+reg.SP];
+                mem[reg.SS+reg.SP] = 0;
+
+                reg.IP+=2;
+
                 break;
             }
             default:

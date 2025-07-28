@@ -8,6 +8,9 @@
 #define SUB 0x2
 #define MOV 0x3
 #define NOP 0x4
+#define PUSH 0x5
+#define POP 0x6
+
 #define MEMSIZE 512
 
 typedef struct {
@@ -17,6 +20,8 @@ typedef struct {
     int16_t DX;
     int16_t PC;
     int16_t IP;
+    int16_t SP;
+    int16_t SS;
 } REGISTER;
 
 extern void clsmem(int16_t* mem);

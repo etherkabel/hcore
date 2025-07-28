@@ -9,4 +9,6 @@ void logging(REGISTER* reg) {
     printf("DX:\t%d\n",reg->DX);
     printf("IP:\t%d\n",reg->IP);
     printf("PC:\t%d\n",reg->PC);
+    printf("SP:\t%d\n",reg->SP);
+    printf("SS:\t%d\n",reg->SS);
 }
