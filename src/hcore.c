@@ -7,6 +7,7 @@ int16_t* getRegisterPtr(REGISTER* reg, int16_t index)
 {
     switch(index)
     {
+<<<<<<< HEAD
         case 1: return &reg->AX;
         case 2: return &reg->BX;
         case 3: return &reg->CX;
@@ -15,6 +16,16 @@ int16_t* getRegisterPtr(REGISTER* reg, int16_t index)
         case 6: return &reg->IP;
         case 7: return &reg->SP;
         case 8: return &reg->SS;
+=======
+        case 0: return &reg->AX;
+        case 1: return &reg->BX;
+        case 2: return &reg->CX;
+        case 3: return &reg->DX;
+        case 4: return &reg->PC;
+        case 5: return &reg->IP;
+        case 6: return &reg->SP;
+        case 7: return &reg->SS;
+>>>>>>> 0be89b4f10ff0aad76f5dc844699f177be853054
     }
 
     return NULL;
@@ -124,12 +135,15 @@ int main(int argc, char* argv[]) {
                 int16_t* reg_ptr = getRegisterPtr(&reg, reg_index);
                 mem[reg.SS+reg.SP] = *reg_ptr;
 
+<<<<<<< HEAD
                 if (!reg_ptr)
                 {
                     fprintf(stderr,"Invalid register index!\n");
                     warexit(&rom_file,&reg,3,0);
                 }
 
+=======
+>>>>>>> 0be89b4f10ff0aad76f5dc844699f177be853054
                 reg.SP-=2;
                 reg.IP+=2;
 
@@ -140,12 +154,15 @@ int main(int argc, char* argv[]) {
                 int16_t reg_index = mem[reg.IP+1];
                 int16_t* reg_ptr = getRegisterPtr(&reg, reg_index);
 
+<<<<<<< HEAD
                 if (!reg_ptr)
                 {
                     fprintf(stderr,"Invalid register index!\n");
                     warexit(&rom_file,&reg,3,0);
                 }
 
+=======
+>>>>>>> 0be89b4f10ff0aad76f5dc844699f177be853054
                 reg.SP += 2;
                 *reg_ptr = mem[reg.SS+reg.SP];
                 mem[reg.SS+reg.SP] = 0;
@@ -154,10 +171,13 @@ int main(int argc, char* argv[]) {
 
                 break;
             }
+<<<<<<< HEAD
             case EXIT:
             {
                 warexit(&rom_file,&reg,reg.DX,1);
             }
+=======
+>>>>>>> 0be89b4f10ff0aad76f5dc844699f177be853054
             default:
                 printf("Incorrect opcode - %d at IP=%d\n",*opcode,reg.IP);
                 warexit(&rom_file,&reg,2,0);

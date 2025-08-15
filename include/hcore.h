@@ -11,7 +11,10 @@
 #define NOP 0x4
 #define PUSH 0x5
 #define POP 0x6
+<<<<<<< HEAD
 #define EXIT 0x7
+=======
+>>>>>>> 0be89b4f10ff0aad76f5dc844699f177be853054
 
 #define MEMSIZE 512
 
